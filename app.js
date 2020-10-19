@@ -1,43 +1,5 @@
 // Alticator 2020
 
-// Add Coordinate Class
-class Coordinate {
-	constructor(x, y) {
-		this.val = [x, y];
-		this.x = x;
-		this.y = y;
-	}
-}
-
-// Add Polygon Shape
-function polygon(point1, point2, point3, point4, fillColor) {
-	this.point1 = point1;
-	this.point2 = point2;
-	this.point3 = point3;
-	this.point4 = point4;
-	this.color = fillColor;
-	this.update = function() {
-		this.point1Pixel = new Coordinate(this.point1.x * (canvas.width / 100), this.point1.y * (canvas.height / 100));
-		this.point2Pixel = new Coordinate(this.point2.x * (canvas.width / 100), this.point2.y * (canvas.height / 100));
-		this.point3Pixel = new Coordinate(this.point3.x * (canvas.width / 100), this.point3.y * (canvas.height / 100));
-		this.point4Pixel = new Coordinate(this.point4.x * (canvas.width / 100), this.point4.y * (canvas.height / 100));
-		ctx.fillStyle = this.color;
-		ctx.beginPath();
-		ctx.moveTo(this.point1Pixel.x, this.point1Pixel.y);
-		ctx.lineTo(this.point2Pixel.x, this.point2Pixel.y);
-		ctx.lineTo(this.point3Pixel.x, this.point3Pixel.y);
-		ctx.lineTo(this.point4Pixel.x, this.point4Pixel.y);
-		ctx.fill();
-	}
-	this.moveByVelocity = function() {
-		this.Xv += this.growXv;
-		this.Yv += this.growYv;
-		this.x += this.Xv;
-		this.y += this.Yv;
-	}
-	objects.push(this);
-}
-
 function percent(type, number) {
 	if (type == "width") {
 		return number * (canvas.width / 100);
