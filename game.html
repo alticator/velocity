@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+	<head>
+		<title>
+			Velocity
+		</title>
+		<style>
+			* {font-family: sans-serif;}
+			body {background-color: #505050; margin: 0;}
+			#stats {position: fixed; left: 10px; top: 50px; color: white; background-color: dodgerblue;}
+			#toolbar {position: fixed; left: 5%; top: 0; background-color: rgba(255, 255, 255, 0.8); border: 2px solid white; width: 90%; border-top: none; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; padding: 5px; font-size: 24px; color: dodgerblue; text-align: center;}
+		</style>
+	</head>
+	<body>
+		<div id="stats" style="display: none;">
+			Vanishing Point Coordinates: <span id="vanishing-point"></span><br>
+			Horizon Y Position: <span id="horizon-y"></span><br>
+			Canvas Size: <span id="canvas-w"></span>x<span id="canvas-h"></span><br>
+			Speed: <span id="speed"></span>
+		</div>
+		<div id="toolbar">
+			Distance Left: <span id="distanceLeft"></span>
+		</div>
+		<canvas id="viewport">
+			Browser not supported
+		</canvas>
+		<script src="https://library.alticator.com/alticator-canvas-engine.js"></script>
+		<script src="app.js"></script>
+	</body>
+</html>
