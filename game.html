@@ -7,8 +7,9 @@
 		<style>
 			* {font-family: sans-serif;}
 			body {background-color: #505050; margin: 0;}
-			#stats {position: fixed; left: 10px; top: 50px; color: white; background-color: dodgerblue;}
+			#stats {position: fixed; left: 10px; top: 50px; color: white; background-color: dodgerblue; padding: 3px; border: 2px solid white;}
 			#toolbar {position: fixed; left: 5%; top: 0; background-color: rgba(255, 255, 255, 0.8); border: 2px solid white; width: 90%; border-top: none; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; padding: 5px; font-size: 24px; color: dodgerblue; text-align: center;}
+			#toolbar a {color: white; background-color: dodgerblue; text-decoration: none; padding: 3px; }
 		</style>
 	</head>
 	<body>
@@ -16,10 +17,11 @@
 			Vanishing Point Coordinates: <span id="vanishing-point"></span><br>
 			Horizon Y Position: <span id="horizon-y"></span><br>
 			Canvas Size: <span id="canvas-w"></span>x<span id="canvas-h"></span><br>
-			Speed: <span id="speed"></span>
+			Speed: <span id="speed"></span><br>
+			Player X: <span id="player-x"></span>
 		</div>
 		<div id="toolbar">
-			Distance Left: <span id="distanceLeft"></span>
+			Timer: <span id="timer"></span> | Distance Left: <span id="distanceLeft"></span> | Maximum Speed: <span id="maxSpeed"></span>
 		</div>
 		<canvas id="viewport">
 			Browser not supported

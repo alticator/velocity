@@ -2,39 +2,52 @@
 <html>
 	<head>
 		<title>
-			Velocity
+			Velocity Updated
 		</title>
 		<style>
 			* {font-family: sans-serif;}
-			body {background-color: #505050; color: white;}
-			a {text-decoration: none; color: white; background-color: dodgerblue; padding: 3px; font-size: 48px;}
+			body {background-color: #505050; color: white; margin: 0; text-align: center;}
+			a {text-decoration: none;}
+			#start {text-decoration: none; color: white; background-color: dodgerblue; padding: 3px; font-size: 24px; border-radius: 50%; padding: 5px; min-width: 100px; min-height: 100px; margin: 10px; border: 5px solid white; cursor: pointer;}
+			nav {text-align: center; background-color: black; font-size: 48px; padding: 5px;}
+			#help {text-align: left; width: 60%; margin: auto; border: 3px solid white;}
+			.header {background-color: dodgerblue; padding: 10px; font-size: 24px;}
+			.content {padding: 5px;}
 		</style>
 	</head>
 	<body>
-		<h1>
-			Alticator Velocity
-		</h1>
+		<nav>
+			Alticator Velocity <span style="color: dodgerblue">Updated</span>
+		</nav>
 		<a href="game.html">
-			Start Game
+			<button id="start">
+				Start
+			</button>
 		</a>
 		<h2>
 			Powered by Alticator Canvas Engine
 		</h2>
-		<h2>
-			Help
-		</h2>
-		<h5>
-			Use arrow keys to control:
-		</h5>
-		<p>
-			Accelerate: Up Arrow <br>
-			Steer: Left and Right Arrow
-		</p>
-		<h5>
-			Game Goal
-		</h5>
-		<p>
-			Drive the track without touching any of the red obstacles. If you touch a blue cube, your car will go faster. You can see the distance left on the tool bar on the top of the screen.
-		</p>
+		<div id="help">
+			<div class="header">
+				Help
+			</div>
+			<div class="content">
+				<h3>
+					Use arrow keys to control:
+				</h3>
+				<p>
+					Accelerate: Up Arrow <br>
+					Steer: Left and Right Arrow
+					<br><br>
+					Show Stats: S
+				</p>
+				<h3>
+					Game Goal
+				</h3>
+				<p>
+					Drive the track without touching any of the red obstacles. If you touch a blue cube, your car will go faster. You can see the distance left on the tool bar on the top of the screen.
+				</p>
+			</div>
+		</div>
 	</body>
 </html>

@@ -55,11 +55,21 @@ var fps = 60;
 var updateInterval = 1000 / fps;
 
 // Game Settings
+var developerMode = false; // Set to true to enable Developer Mode; Developer Mode automatically displays the stats and makes the first level shorter.
 var speed = 1;
 var turnSpeed = 1.1;
 var gravity = 0.02;
 var distanceLeft = 1000;
+var level = 1;
 var obstacleExtraSpeed = 0.5;
+var playerX = 0;
+var timer = 0;
+
+if (developerMode) {
+	distanceLeft = 100;
+	document.getElementById("stats").style.display = "initial";
+	document.getElementById("toolbar").innerHTML += " | Developer Mode";
+}
 
 // Game World
 var vanishingPoint = new Coordinate(50, 50);
@@ -89,10 +99,10 @@ var rightY = new polygon(vanishingPoint, new Coordinate(51, 100), new Coordinate
 
 var sky = new rect(0, 0, 100, vanishingPoint.y + 1, "dodgerblue");
 
-var speedUp = new rect(10, -10, 3, 3, "blue");
+var speedUp = new rect(10, -10, 3, 3, magentaGradient);
 speedUp.growYv = gravity;
 
-var obstacle = new rect(45, -10, 10, 10, "red");
+var obstacle = new imageObj(45, -10, 10, 10, "obstacle.png");
 obstacle.growYv = gravity;
 
 var car = new imageObj(40, 75, 20, 25, "car.png");
@@ -105,8 +115,13 @@ var car = new imageObj(40, 75, 20, 25, "car.png");
 // Set interval to render
 var gameLoop = setInterval(renderFrame, updateInterval);
 
+var levelText = new textObj("Level 2", 50, -20, "36px Arial", "#00d020", "center");
+
 // Render Frame
 function renderFrame() {
+	//Update Timer
+	timer += updateInterval / 1000;
+	
 	// Update Car Position
 	if (keyMap.up) {
 		distanceLeft -= speed / 2;
@@ -159,7 +174,8 @@ function renderFrame() {
 	else {
 		vanishingPoint.x = 50;
 	}
-	if (keyMap.right) {
+	if (keyMap.right && playerX < 100 - car.width) {
+		playerX += turnSpeed;
 		obstacle.x -= 0.5;
 		speedUp.x -= 0.5;
 		road.point3.x -= turnSpeed;
@@ -177,7 +193,8 @@ function renderFrame() {
 		segment2.point2.x -= turnSpeed;
 		segment2.point3.x -= turnSpeed;
 	}
-	else if (keyMap.left) {
+	else if (keyMap.left && playerX > -100 + car.width) {
+		playerX -= turnSpeed;
 		obstacle.x += 0.5;
 		speedUp.x += 0.5;
 		road.point3.x += turnSpeed;
@@ -211,29 +228,56 @@ function renderFrame() {
 	
 	if (objectCollision(car, obstacle)) {
 		clearInterval(gameLoop);
-		document.getElementById("toolbar").innerHTML = 'Game Over | <a href="index.html" style="color: dodgerblue;">Restart Game</a>';
-		clearObjects();
-		new textObj("Game Over", 10, 10, "36px Arial", "white", "center");
+		document.getElementById("toolbar").innerHTML = 'Game Over | Time: <span id="timer"></span> | <a href="game.html">Restart Game</a> <a href="index.html">Main Menu</a>';
+		if (developerMode) {
+			document.getElementById("toolbar").innerHTML += " | Developer Mode";
+		}
+		//clearObjects();
+		new textObj("Game Over", 50, 20, "48px Arial", "white", "center");
 	}
 	else if (objectCollision(car, speedUp)) {
 		speed = 2;
+		speedUp.x = random(10, 80);
+		speedUp.y = -10;
+		speedUp.Yv = 0;
 		setTimeout(function() {
 			speed = 1;
 		}, 5000);
 	}
 	
-	if (distanceLeft <= 0) {
+	if (distanceLeft <= 0 && level == 1) {
+		levelText.y = 20;
+		ground.color = "green";
+		sky.color = "#000050";
+		road.color = "#505050";
+		distanceLeft = 1000;
+		level++;
+		setTimeout(function() {
+			levelText.y = -20;
+		}, 1000)
+	}
+	else if (distanceLeft <= 0 && level == 2) {
 		clearInterval(gameLoop);
-		document.getElementById("toolbar").innerHTML = 'Win | <a href="index.html" style="color: dodgerblue;">Restart Game</a>';
-		clearObjects();
-		new textObj("Win", 10, 10, "48px Arial", "#00d020", "center");
+		document.getElementById("toolbar").innerHTML = 'Win | Time: <span id="timer"></span> | <a href="game.html">Restart Game</a> <a href="index.html">Main Menu</a>';
+		if (developerMode) {
+			document.getElementById("toolbar").innerHTML += " | Developer Mode";
+		}
+		//clearObjects();
+		new textObj("Win", 50, 20, "48px Arial", "#00d020", "center");
 	}
 	
 	// Render Frame
 	updateAll();
 	
 	// Update Toolbar
+	document.getElementById("timer").innerHTML = Math.floor(Math.floor(timer));
 	document.getElementById("distanceLeft").innerHTML = Math.floor(distanceLeft);
+	if (speed == 1) {
+		document.getElementById("maxSpeed").innerHTML = "Basic";
+	}
+	else if (speed == 2) {
+		document.getElementById("maxSpeed").innerHTML = "Boost";
+	}
 	
 	// Update Stats (Press S during gameplay to display)
 	document.getElementById("vanishing-point").innerHTML = "(" + vanishingPoint.x + ", " + vanishingPoint.y + ")";
@@ -241,4 +285,5 @@ function renderFrame() {
 	document.getElementById("canvas-w").innerHTML = canvas.width;
 	document.getElementById("canvas-h").innerHTML = canvas.height;
 	document.getElementById("speed").innerHTML = speed;
+	document.getElementById("player-x").innerHTML = playerX;
 }
